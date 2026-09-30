@@ -1,0 +1,26 @@
+stages:
+
+  prepare:
+    cmd: python prepare.py
+    deps:
+      - data/data.csv
+      - prepare.py
+    outs:
+      - prepared.csv
+
+  train:
+    cmd: python train.py
+    deps:
+      - prepared.csv
+      - train.py
+    outs:
+      - model.txt
+
+  evaluate:
+    cmd: python evaluate.py
+    deps:
+      - prepared.csv
+      - model.txt
+      - evaluate.py
+    metrics:
+      - metrics.json

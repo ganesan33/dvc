@@ -1,0 +1,54 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python prepare.py
+    deps:
+    - path: data/data.csv
+      hash: md5
+      md5: 86103ca09fa9b82cebe1cf1bbfa25803
+      size: 59
+    - path: prepare.py
+      hash: md5
+      md5: c54eee1a53b3d770f0687b2b46c1c346
+      size: 251
+    outs:
+    - path: prepared.csv
+      hash: md5
+      md5: 0bc09dae522d00690706d53ef9390c8f
+      size: 61
+  train:
+    cmd: python train.py
+    deps:
+    - path: prepared.csv
+      hash: md5
+      md5: 0bc09dae522d00690706d53ef9390c8f
+      size: 61
+    - path: train.py
+      hash: md5
+      md5: cbfc8240d488676a4ff9d791d68c0fbc
+      size: 458
+    outs:
+    - path: model.txt
+      hash: md5
+      md5: 1f19392811e854b4e59d2e0e765e6d0b
+      size: 5
+  evaluate:
+    cmd: python evaluate.py
+    deps:
+    - path: evaluate.py
+      hash: md5
+      md5: 704d116b2d11e520d7297642b52cca9d
+      size: 553
+    - path: model.txt
+      hash: md5
+      md5: 1f19392811e854b4e59d2e0e765e6d0b
+      size: 5
+    - path: prepared.csv
+      hash: md5
+      md5: 0bc09dae522d00690706d53ef9390c8f
+      size: 61
+    outs:
+    - path: metrics.json
+      hash: md5
+      md5: 697eb6c646cce22e491c2e28e243bcbf
+      size: 26
